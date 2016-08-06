@@ -1,0 +1,41 @@
+- name: Installing dependencies
+  yum: 
+    name={{ dependencies }}
+    state=latest
+
+- name: Installing etcd config
+  copy: 
+    src=etcd.conf
+    dest=/etc/etcd/etcd.conf
+
+- name: Installing kubernetes apiserver config
+  copy:
+    src=apiserver
+    dest=/etc/kubernetes/apiserver
+
+- name: Launch etcd service
+  service:
+    name=etcd
+    state=started
+    enabled=yes
+
+- name: Launch kube-apiserver service
+  service:
+    name=kube-apiserver
+    state=started
+    enabled=yes
+
+- name: Launch kube-controller-manager service
+  service:
+    name=kube-controller-manager
+    state=started
+    enabled=yes
+
+- name: Launch kube-scheduler service
+  service:
+    name=kube-scheduler
+    state=started
+    enabled=yes
+
+- name: Define flannel network configuration
+  shell: etcdctl mk /atomic.io/network/config '{"Network":"172.17.0.0/16"}'

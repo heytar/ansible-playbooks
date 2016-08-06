@@ -1,0 +1,6 @@
+dependencies: [
+  flannel,
+  kubernetes,
+]
+
+kubernetes_master: "node01"

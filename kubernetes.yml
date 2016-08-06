@@ -1,0 +1,7 @@
+- hosts: kubernetes-master
+  roles:
+    - kubernetes-master
+
+- hosts: kubernetes-minion
+  roles:
+    - kubernetes-minion

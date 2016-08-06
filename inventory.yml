@@ -1,0 +1,11 @@
+[console]
+adm01 ansible_host=127.0.0.1
+
+[centos]
+node0[1:4]
+
+[kubernetes-master]
+node01
+
+[kubernetes-minion]
+node0[2:4]

@@ -1,0 +1,52 @@
+- name: Add repositories
+  yum_repository:
+    name: docker
+    description: Docker Repository
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Installing dependencies
+  yum: 
+    name={{ dependencies }}
+    state=latest
+
+- name: Installing flanneld config
+  template: 
+    src=flanneld
+    dest=/etc/sysconfig/flanneld
+
+- name: Installing kubernetes config
+  template:
+    src=kubernetes.config
+    dest=/etc/kubernetes/config
+
+- name: Installing kubelet config
+  template:
+    src=kubelet
+    dest=/etc/kubernetes/kubelet
+
+- name: Launch kube-proxy service
+  service:
+    name=kube-proxy
+    state=started
+    enabled=yes
+
+- name: Launch kubelet service
+  service:
+    name=kubelet
+    state=started
+    enabled=yes
+
+- name: Launch docker service
+  service:
+    name=docker
+    state=started
+    enabled=yes
+
+- name: Launch flanneld service
+  service:
+    name=flanneld
+    state=started
+    enabled=yes

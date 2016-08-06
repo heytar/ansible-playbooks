@@ -1,0 +1,15 @@
+- name: Installing dependencies
+  yum: 
+    name={{ dependencies }}
+    state=latest
+
+- name: Installing hosts file
+  copy: 
+    src=/etc/hosts 
+    dest=/etc/hosts
+
+- name: Time synchronization
+  service: 
+    name=ntpd
+    state=started
+    enabled=yes

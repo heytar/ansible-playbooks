@@ -1,0 +1,2 @@
+FLANNEL_ETCD="http://{{ kubernetes_master }}:2379"
+FLANNEL_ETCD_KEY="/atomic.io/network"

@@ -1,0 +1,42 @@
+- name: Add repositories
+  yum_repository:
+    name: docker
+    description: Docker Repository
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Installing yum dependencies
+  yum: 
+    name={{ dependencies }}
+    state=latest
+
+- name: Insalling golang
+  unarchive: 
+    src={{ godistr }}
+    dest=/etc
+    copy=no
+
+- name: Creating links
+  file: 
+    src=/etc/go/bin/go 
+    dest=/usr/bin/go 
+    state=link
+
+- name: Installing hosts file
+  copy: 
+    src=hosts 
+    dest=/etc/hosts
+
+- name: Installing .bash_profile
+  copy:
+    src=.bash_profile
+    dest=~/.bash_profile
+
+- name: Enabling Docker service
+  service:
+    name=docker
+    state=started
+    enabled=yes
+
