@@ -7,36 +7,58 @@
     gpgcheck: yes
     gpgkey: https://yum.dockerproject.org/gpg
 
-- name: Installing yum dependencies
+- name: Install yum dependencies
   yum: 
-    name={{ dependencies }}
-    state=latest
+    name: "{{ dependencies }}"
+    state: latest
 
-- name: Insalling golang
+- name: Insall golang
   unarchive: 
-    src={{ godistr }}
-    dest=/etc
-    copy=no
+    src: "{{ godistr }}"
+    dest: /etc
+    copy: no
 
-- name: Creating links
+- name: Download python3
+  unarchive:
+    src: "{{ py3distr}}"
+    dest: /tmp
+    copy: no
+
+- name: Install python3
+  shell: "{{ item }} chdir=/tmp/{{ py3folder }}"
+  with_items:
+    - ./configure
+    - make
+    - make install
+
+- name: Create links
   file: 
-    src=/etc/go/bin/go 
-    dest=/usr/bin/go 
-    state=link
+    src: /etc/go/bin/go 
+    dest: /usr/bin/go 
+    state: link
 
-- name: Installing hosts file
+- name: Copy hosts file
   copy: 
-    src=hosts 
-    dest=/etc/hosts
+    src: hosts 
+    dest: /etc/hosts
 
-- name: Installing .bash_profile
+- name: Copy .bash_profile file
   copy:
-    src=.bash_profile
-    dest=~/.bash_profile
+    src: .bash_profile
+    dest: ~/.bash_profile
 
-- name: Enabling Docker service
+- name: Copy .bashrc file
+  copy:
+    src: .bashrc
+    dest: ~/.bashrc
+
+- name: Start and enable Docker service
   service:
-    name=docker
-    state=started
-    enabled=yes
+    name: docker
+    state: started
+    enabled: yes
 
+- name: Delete temporary files
+  file:
+    path: /tmp/{{ py3folder }}
+    state: absent

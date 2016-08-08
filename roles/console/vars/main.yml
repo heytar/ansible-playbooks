@@ -7,3 +7,9 @@ dependencies: [
 
 godistr:
   "https://storage.googleapis.com/golang/go1.6.3.linux-amd64.tar.gz"
+
+py3distr:
+  "https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz"
+
+py3folder:
+  "Python-3.5.2"

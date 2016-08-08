@@ -1,7 +1,3 @@
-- hosts: console
-  roles:
-    - console
-
 - hosts: centos
   roles:
     - centos
