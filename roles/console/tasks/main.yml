@@ -12,7 +12,13 @@
     name: "{{ dependencies }}"
     state: latest
 
-- name: Insall golang
+- name: Start and enable ntpd service
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+
+- name: Install golang
   unarchive: 
     src: "{{ godistr }}"
     dest: /etc
@@ -20,7 +26,7 @@
 
 - name: Download python3
   unarchive:
-    src: "{{ py3distr}}"
+    src: "{{ py3distr }}"
     dest: /tmp
     copy: no
 
