@@ -1,3 +1,8 @@
+- name: Install yum dependencies
+  yum:
+    name: "{{ sys_deps }}"
+    state: latest
+
 - name: Copy hosts file
   copy:
     src: hosts
@@ -12,11 +17,6 @@
   copy:
     src: .bashrc
     dest: ~/.bashrc
-
-- name: Install yum dependencies
-  yum: 
-    name: "{{ sys_deps }}"
-    state: latest
 
 - name: Start and enable ntpd service
   service:

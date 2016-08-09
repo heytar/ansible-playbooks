@@ -1,4 +1,5 @@
 sys_deps: [
+  libselinux-python,
   epel-release,
   gcc,
   ntp,
