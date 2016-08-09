@@ -1,0 +1,17 @@
+- name: Download python3
+  unarchive:
+    src: "{{ py3distr }}"
+    dest: /tmp
+    copy: no
+
+- name: Install python3
+  shell: "{{ item }} chdir=/tmp/{{ py3folder }}"
+  with_items:
+    - ./configure
+    - make
+    - make install
+
+- name: Delete temporary files
+  file:
+    path: /tmp/{{ py3folder }}
+    state: absent

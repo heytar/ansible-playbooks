@@ -1,6 +1,8 @@
 dependencies: [
   epel-release,
   libselinux-python,
+  openssl-devel,
+  gcc,
   ntp,
   wget,
   docker-engine

@@ -1,3 +1,18 @@
+- name: Copy hosts file
+  copy:
+    src: hosts
+    dest: /etc/hosts
+
+- name: Copy .bash_profile file
+  copy:
+    src: .bash_profile
+    dest: ~/.bash_profile
+
+- name: Copy .bashrc file
+  copy:
+    src: .bashrc
+    dest: ~/.bashrc
+
 - name: Add repositories
   yum_repository:
     name: docker
@@ -18,53 +33,11 @@
     state: started
     enabled: yes
 
-- name: Install golang
-  unarchive: 
-    src: "{{ godistr }}"
-    dest: /etc
-    copy: no
-
-- name: Download python3
-  unarchive:
-    src: "{{ py3distr }}"
-    dest: /tmp
-    copy: no
-
-- name: Install python3
-  shell: "{{ item }} chdir=/tmp/{{ py3folder }}"
-  with_items:
-    - ./configure
-    - make
-    - make install
-
-- name: Create links
-  file: 
-    src: /etc/go/bin/go 
-    dest: /usr/bin/go 
-    state: link
-
-- name: Copy hosts file
-  copy: 
-    src: hosts 
-    dest: /etc/hosts
-
-- name: Copy .bash_profile file
-  copy:
-    src: .bash_profile
-    dest: ~/.bash_profile
-
-- name: Copy .bashrc file
-  copy:
-    src: .bashrc
-    dest: ~/.bashrc
-
 - name: Start and enable Docker service
   service:
     name: docker
     state: started
     enabled: yes
 
-- name: Delete temporary files
-  file:
-    path: /tmp/{{ py3folder }}
-    state: absent
+- include: golang.yml
+- include: python.yml
