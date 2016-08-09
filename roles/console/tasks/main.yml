@@ -27,3 +27,4 @@
 - include: golang.yml
 - include: python3.yml
 - include: docker.yml
+- include: vim.yml
