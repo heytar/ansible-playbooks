@@ -1,3 +1,10 @@
+- include_vars: python3.yml
+
+- name: Install yum dependencies
+  yum:
+    name: "{{ py3_deps }}"
+    state: latest
+
 - name: Download python3
   unarchive:
     src: "{{ py3distr }}"

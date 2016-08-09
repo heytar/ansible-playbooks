@@ -1,0 +1,9 @@
+py3_deps: [
+  openssl-devel
+]
+
+py3distr:
+  "https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz"
+
+py3folder:
+  "Python-3.5.2"

@@ -1,0 +1,21 @@
+- include_vars: docker.yml
+
+- name: Add repositories
+  yum_repository:
+    name: docker
+    description: Docker Repository
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Install yum dependencies
+  yum:
+    name: "{{ docker_deps }}"
+    state: latest
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes

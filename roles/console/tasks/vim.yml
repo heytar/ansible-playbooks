@@ -1,0 +1,11 @@
+- include_vars: vim.yml
+
+- name: Install yum dependencies
+  yum:
+    name: "{{ vim_deps }}"
+    state: latest
+
+- name: Copy .vimrc file
+  copy:
+    src: .vimrc
+    dest: ~/.vimrc
