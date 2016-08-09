@@ -5,6 +5,7 @@ dependencies: [
   gcc,
   ntp,
   wget,
+  git,
   docker-engine
 ]
 

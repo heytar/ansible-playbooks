@@ -15,3 +15,9 @@
   file:
     path: /tmp/{{ py3folder }}
     state: absent
+
+- name: Install and update pip
+  shell: "python3 -m pip install pip --upgrade"
+
+- name: Update setuptools
+  shell: "python3 -m pip install setuptools --upgrade"
